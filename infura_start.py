@@ -50,7 +50,9 @@ async def main():
 
     raw_token = '0x1a9b54a3075119f1546c52ca0940551a6ce5d2d0'
     raw_address = '0x51f1774249Fc2B0C2603542Ac6184Ae1d048351d'
-    addresses = [raw_address] * 10
+    raw_address1 = '0x4830AF4aB9cd9E381602aE50f71AE481a7727f7C'
+    addresses = [raw_address, raw_address1, raw_address,
+                 raw_address1, raw_address, raw_address1]
 
     t = time()
     r = await get_balance_batch(web3, raw_token, addresses)
@@ -59,9 +61,11 @@ async def main():
     print(f"Time taken for asynchronous calls: {v - t}")
 
     t = time()
-    for _ in range(10):
-        get_balance(web3, raw_token, raw_address)
+    r = list()
+    for a in addresses:
+        r.append(get_balance(web3, raw_token, a))
     v = time()
+    print(r)
     print(f"Time taken for synchronous calls: {v - t}")
 
 if __name__ == "__main__":
